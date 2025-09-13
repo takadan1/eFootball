@@ -1,0 +1,14 @@
+<h1>eFootball 共有</h1>
+<h3>一覧ページ</h3>
+<%= link_to "新規投稿へ", new_share_path %>
+<div class="shares-container">
+  <% @shares.each do |t| %>
+    <div class="share">
+      <%= t.photo %>
+      <%= t.about %>
+       <%= link_to "詳細へ", share_path(t.id) %> 
+       <%= link_to "編集する", edit_share_path(t.id) %>
+        <%= button_to "削除する", share_path(t.id), method: :delete %> 
+    </div>
+  <% end %>
+</div>

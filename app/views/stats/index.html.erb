@@ -1,0 +1,30 @@
+<h1>結果画面（集計）</h1>
+
+<%= form_with url: stats_path, method: :get, local: true do %>
+  <div>
+    <label>フォーメーション（例: 4123）</label>
+    <%= text_field_tag :formation, params[:formation] %>
+  </div>
+  <div>
+    <label>チームスタイル</label>
+    <%= select_tag :style,
+      options_for_select([["指定なし",""]] + Match.team_styles.keys.map { |k|
+        [ { "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター",
+            "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック" }[k], k]
+      }, params[:style]) %>
+  </div>
+  <%= submit_tag "合計" %>
+<% end %>
+
+<hr>
+
+<p>対象試合数：<strong><%= @total %></strong></p>
+<ul>
+  <li>勝ち：<strong><%= @win_pct %>%</strong>　引き分け：<strong><%= @draw_pct %>%</strong>　負け：<strong><%= @loss_pct %>%</strong></li>
+  <li>平均得点数：<strong><%= @avg_gf %></strong>　平均失点数：<strong><%= @avg_ga %></strong></li>
+  <li>最頻<strong>得点</strong>理由：<strong><%= @top_gf_reason %></strong>（<%= @top_gf_pct %>%）</li>
+  <li>最頻<strong>失点</strong>理由：<strong><%= @top_ga_reason %></strong>（<%= @top_ga_pct %>%）</li>
+</ul>
+
+<p><%= link_to "記録入力へ", new_match_path %> / <%= link_to "記録一覧へ", matches_path %></p>
+

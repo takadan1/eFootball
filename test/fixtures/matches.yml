@@ -1,0 +1,47 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  result: 1
+  opponent_formation: MyString
+  team_style: 1
+  notes: MyText
+  gf_counter: 1
+  gf_cross: 1
+  gf_one_two: 1
+  gf_long_shot: 1
+  gf_dribble: 1
+  gf_build_up: 1
+  gf_accident: 1
+  gf_other: 1
+  ga_counter: 1
+  ga_cross: 1
+  ga_one_two: 1
+  ga_long_shot: 1
+  ga_dribble: 1
+  ga_build_up: 1
+  ga_accident: 1
+  ga_other: 1
+
+two:
+  user: two
+  result: 1
+  opponent_formation: MyString
+  team_style: 1
+  notes: MyText
+  gf_counter: 1
+  gf_cross: 1
+  gf_one_two: 1
+  gf_long_shot: 1
+  gf_dribble: 1
+  gf_build_up: 1
+  gf_accident: 1
+  gf_other: 1
+  ga_counter: 1
+  ga_cross: 1
+  ga_one_two: 1
+  ga_long_shot: 1
+  ga_dribble: 1
+  ga_build_up: 1
+  ga_accident: 1
+  ga_other: 1

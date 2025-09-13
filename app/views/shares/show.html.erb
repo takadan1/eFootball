@@ -1,0 +1,10 @@
+<h1>eFootball 共有</h1>
+<h3>詳細</h3>
+<div class="share">
+  <p><%= @share.photo %></p>
+  <p><%= @share.about %></p>
+  <p><%= @share.created_at %></p>
+</div>
+
+<%= link_to "一覧に戻る", shares_path %>
+<%= link_to "編集する", edit_share_path(@share.id) %>

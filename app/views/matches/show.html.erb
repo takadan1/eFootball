@@ -1,0 +1,36 @@
+<h1>試合詳細</h1>
+<p>日時：<%= l @match.created_at, format: :short %></p>
+<p>結果：<%= { "win"=>"勝ち", "draw"=>"引き分け", "loss"=>"負け" }[@match.result] %></p>
+<p>相手フォメ：<%= @match.opponent_formation.presence || "-" %></p>
+<p>スタイル：<%= @match.team_style ? {
+  "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター",
+  "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック"
+}[@match.team_style] : "-" %></p>
+
+<h3>得点内訳</h3>
+<ul>
+  <% Match::GF_REASONS.each do |k, label| %>
+    <li><%= label %>：<%= @match.send(k) %></li>
+  <% end %>
+</ul>
+
+<h3>失点内訳</h3>
+<ul>
+  <% Match::GA_REASONS.each do |k, label| %>
+    <li><%= label %>：<%= @match.send(k) %></li>
+  <% end %>
+</ul>
+
+<p>メモ：<%= simple_format(@match.notes) %></p>
+
+<hr>
+<p>
+  <%= link_to "編集", edit_match_path(@match) %>
+  |
+  <%# button_to は method: :delete を内包するので Turbo/Rails7 で確実に動きます %>
+  <%= button_to "削除", match_path(@match),
+        method: :delete,
+        form: { data: { turbo_confirm: "本当に削除しますか？" } } %>
+</p>
+
+<p><%= link_to "一覧へ戻る", matches_path %></p>

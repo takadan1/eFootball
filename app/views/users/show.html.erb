@@ -1,0 +1,10 @@
+<h1>マイページ</h1>
+<p><%= current_user.email %> さん、こんにちは。</p>
+
+<ul>
+  <li><%= link_to "新規記録（入力）", new_match_path %></li>
+  <li><%= link_to "記録一覧", matches_path %></li>
+  <li><%= link_to "分析（結果画面）", stats_path %></li>
+</ul>
+
+<p><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></p>

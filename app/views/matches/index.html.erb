@@ -1,0 +1,29 @@
+<h1>記録一覧</h1>
+<p><%= link_to "新規入力", new_match_path %> | <%= link_to "結果画面（集計）", stats_path %></p>
+<p><%= link_to "共有", shares_path %></p>
+
+
+<table border="1" cellpadding="6">
+  <thead>
+    <tr>
+      <th>日時</th><th>勝敗</th><th>得点</th><th>失点</th><th>フォメ</th><th>スタイル</th><th>メモ</th><th>詳細</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @matches.each do |m| %>
+      <tr>
+        <td><%= l m.created_at, format: :short %></td>
+        <td><%= { "win"=>"勝ち", "draw"=>"引き分け", "loss"=>"負け" }[m.result] %></td>
+        <td><%= m.goals_for %></td>
+        <td><%= m.goals_against %></td>
+        <td><%= m.opponent_formation.presence || "-" %></td>
+        <td><%= m.team_style ? {
+              "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター",
+              "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック"
+            }[m.team_style] : "-" %></td>
+        <td><%= m.notes %></td>
+        <td><%= link_to "詳細", match_path(m) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

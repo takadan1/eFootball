@@ -67,3 +67,5 @@ gem "devise", "~> 4.9"
 group :production do
   gem 'pg'
 end
+
+gem 'sass-rails'

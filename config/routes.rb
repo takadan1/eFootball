@@ -21,7 +21,10 @@ Rails.application.routes.draw do
   get "stats", to: "stats#index", as: :stats
 
 
-  resources :shares
+  resources :shares do
+     resources :comments, only: [:create]
+  end
+
   root 'matches#index'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -36,8 +39,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
-
-
 
 end

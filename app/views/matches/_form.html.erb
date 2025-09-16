@@ -23,7 +23,7 @@
   </div>
 
   <div>
-    <%= f.label :team_style, "チームスタイル" %><br>
+    <%= f.label :team_style, "相手チームスタイル" %><br>
     <%= f.select :team_style,
       Match.team_styles.keys.map { |k| [ { "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター",
         "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック" }[k], k] },

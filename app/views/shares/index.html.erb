@@ -1,14 +1,29 @@
-<h1>eFootball 共有</h1>
-<h3>一覧ページ</h3>
-<%= link_to "新規投稿へ", new_share_path %>
+<h1>掲示板（雑談する）</h1>
+
+<%= link_to "記録一覧へ", matches_path %> / <%= link_to "マイページへ", mypage_path %> 
+<h3>投稿一覧</h3>
+<%= link_to "新しく投稿する", new_share_path %>
+<br><br>
+  <hr>
 <div class="shares-container">
   <% @shares.each do |t| %>
-    <div class="share">
-      <%= t.photo %>
-      <%= t.about %>
-       <%= link_to "詳細へ", share_path(t.id) %> 
+   <div class="share">
+
+    <% if t.image.attached? %>
+            <%= image_tag t.image, size: '250x200'%>
+    <% end %>
+    </div><%= t.about %>
+    </div><%= link_to "詳細へ", share_path(t.id) %>
+
+    <% if user_signed_in? && current_user.id == t.user_id %>
        <%= link_to "編集する", edit_share_path(t.id) %>
-        <%= button_to "削除する", share_path(t.id), method: :delete %> 
-    </div>
+       <%= button_to "削除する", share_path(t.id), method: :delete %> 
+    <% end %>
+   </div>
+    <hr>
   <% end %>
 </div>
+
+
+
+

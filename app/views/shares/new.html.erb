@@ -1,19 +1,17 @@
-<h1>(eFootball 共有)</h1>
-<h3>新規投稿ページ</h3>
+<h1>掲示板（雑談する）</h1>
+<h3>新規投稿</h3>
 <%= form_for @share do |f| %>
 
-# データ型がstringで自由記述の入力フォーム #<%#%>で囲めば消せる
   <div class="field">
-    <%= f.label :photo %>
-    <%= f.text_field :photo, :size => 30 %>
+    <%= f.label :画像　　 %>
+    <%= f.file_field :image %>
   </div>
 
-
-# データ型がtextで自由記述の入力フォーム
-  <div class="field">
-    <%= f.label :about  %>
-    <%= f.text_area :about, :size => "30x2" %>
+    <div class="field">
+    <%= f.label :コメント %>
+    <%= f.text_field :about, :size => 140 %>
   </div>
+  
 
   <%= f.submit "投稿する" %>
 <% end %>

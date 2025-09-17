@@ -1,31 +1,59 @@
-<h1>記録一覧</h1>
-<p><%= link_to "掲示板（雑談する）", shares_path %> | <%= link_to "マイページへ", mypage_path %></p>
+<%# --- 試合記録一覧ページ --- %>
+<div class="list-page-wrapper">
+  <div class="list-container">
 
-<p><%= link_to "新規記録（入力する）", new_match_path %> | <%= link_to "記録集計（分析する）", stats_path %></p>
+    <%# ページヘッダー %>
+    <div class="page-header">
+      <h1>試合記録一覧</h1>
+      <div class="header-actions">
+        <%= link_to "新規記録", new_match_path, class: "btn btn-primary" %>
+        <%= link_to "記録集計", stats_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
 
+    <%# 試合記録テーブル %>
+    <div class="table-wrapper">
+      <table class="matches-table">
+        <thead>
+          <tr>
+            <th>日時</th>
+            <th>勝敗</th>
+            <th>得点</th>
+            <th>失点</th>
+            <th>相手フォメ</th>
+            <th>相手スタイル</th>
+            <th>メモ</th>
+            <th></th> <%# 詳細リンク用の空ヘッダー %>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @matches.present? %>
+            <% @matches.each do |m| %>
+              <tr class="result-row-<%= m.result %>">
+                <td data-label="日時"><%= l m.created_at, format: :short %></td>
+                <td data-label="勝敗" class="result-cell">
+                  <span class="result-badge result-<%= m.result %>">
+                    <%= { "win"=>"勝ち", "draw"=>"引き分け", "loss"=>"負け" }[m.result] %>
+                  </span>
+                </td>
+                <td data-label="得点" class="score-cell"><%= m.goals_for %></td>
+                <td data-label="失点" class="score-cell"><%= m.goals_against %></td>
+                <td data-label="相手フォメ"><%= m.opponent_formation.presence || "-" %></td>
+                <td data-label="相手スタイル"><%= m.team_style ? { "short_counter"=>"ショートカウンター", "long_counter"=>"ロングカウンター", "possession"=>"ポゼッション", "long_ball"=>"ロングボール", "side_attack"=>"サイドアタック" }[m.team_style] : "-" %></td>
+                <td data-label="メモ" class="notes-cell"><%= truncate(m.notes, length: 20) %></td>
+                <td class="action-cell"><%= link_to "詳細", match_path(m), class: "btn btn-outline" %></td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr>
+              <td colspan="8" class="no-data-cell">
+                まだ試合記録がありません。まずは新規記録を作成しましょう！
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-
-<table border="1" cellpadding="6">
-  <thead>
-    <tr>
-      <th>日時</th><th>勝敗</th><th>得点</th><th>失点</th><th>フォメ</th><th>スタイル</th><th>メモ</th><th>詳細</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @matches.each do |m| %>
-      <tr>
-        <td><%= l m.created_at, format: :short %></td>
-        <td><%= { "win"=>"勝ち", "draw"=>"引き分け", "loss"=>"負け" }[m.result] %></td>
-        <td><%= m.goals_for %></td>
-        <td><%= m.goals_against %></td>
-        <td><%= m.opponent_formation.presence || "-" %></td>
-        <td><%= m.team_style ? {
-              "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター",
-              "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック"
-            }[m.team_style] : "-" %></td>
-        <td><%= m.notes %></td>
-        <td><%= link_to "詳細", match_path(m) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  </div>
+</div>

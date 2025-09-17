@@ -17,11 +17,10 @@
     <%= javascript_importmap_tags %>
     <%# app/views/layouts/application.html.erb の <head> 内に追加 %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
   </head>
 
-<body>
-  <body>
+<body class="site-body">
+
   <%# ===== ヘッダー ===== %>
   <header class="site-header">
 
@@ -46,7 +45,7 @@
 
 
   <%# ===== メインコンテンツ ===== %>
-  <main class="main-content">
+  <main class="site-main">
     <%= yield %>
   </main>
   <%# ===== メインコンテンツここまで ===== %>
@@ -56,3 +55,5 @@
   </footer>
 
 </body>
+</html>
+

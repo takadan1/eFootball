@@ -120,3 +120,257 @@
 .btn-danger { background-color: #dc3545; color: white; border-color: #dc3545; }
 .btn-danger:hover { background-color: #c82333; border-color: #bd2130; }
 form.button_to { display: inline; }
+
+
+
+
+
+
+
+
+
+/* custom.css の末尾に追記 */
+
+/* --- 試合記録フォーム (matches/_form.html.erb) --- */
+
+/* フォーム全体のラッパー */
+.match-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* 各セクションカード間の隙間 */
+}
+
+/* 各セクションのカードスタイル */
+.form-section-card {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+}
+.section-title {
+  font-size: 1.5rem;
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e9ecef;
+  color: #333;
+}
+
+
+/* --- 1. 試合結果 (ラジオボタン) --- */
+.result-radio-group {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.radio-label {
+  /* 見た目のスタイル */
+  display: block;
+  padding: 1rem 1.5rem;
+  border: 2px solid #ced4da;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  flex-grow: 1;
+  transition: all 0.2s ease;
+  position: relative; /* inputを絶対配置するための基準 */
+}
+
+.radio-input {
+  /* ★★★ 修正点 ★★★ */
+  /* 見た目だけを消し、存在は残してクリックできるようにする */
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+/* 色分け */
+.radio-label.result-win { border-color: #28a745; color: #28a745; }
+.radio-label.result-loss { border-color: #dc3545; color: #dc3545; }
+.radio-label.result-draw { border-color: #ffc107; color: #ffc107; }
+
+/* ホバー時のスタイル */
+.radio-label:hover {
+  background-color: #f8f9fa;
+}
+
+/* ★★★ 修正点 ★★★ */
+/* 選択時のスタイルを、label自体を基準に変更 */
+.radio-input:checked ~ {
+  /* このセレクタは不要なので削除 */
+}
+.radio-label:has(input:checked) {
+  color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.radio-label.result-win:has(input:checked) { background-color: #28a745; }
+.radio-label.result-loss:has(input:checked) { background-color: #dc3545; }
+.radio-label.result-draw:has(input:checked) { background-color: #ffc107; }
+
+
+
+
+/* --- 2. 得点・失点 --- */
+.score-inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+.score-column h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+}
+.form-field-inline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f4f8;
+}
+.form-field-inline label {
+  color: #495057;
+}
+.form-control-number {
+  width: 60px;
+  padding: 0.4rem;
+  text-align: center;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+}
+
+/* --- 3. 相手情報・メモ --- */
+.details-inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.form-control, .form-control-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+select.form-control-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e" );
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+/* --- フォーム送信アクション --- */
+.main-submit-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0; /* form-wrapperのgapで調整 */
+}
+
+
+
+
+
+
+
+
+
+/* custom.css の末尾に追記 */
+
+/* --- 一覧ページ共通スタイル --- */
+.list-page-wrapper {
+  padding: 2rem 1rem;
+  background-color: #f0f4f8;
+}
+.list-container {
+  max-width: 1200px; /* テーブルは横幅が広いため、コンテナも広めに */
+  margin: 0 auto;
+}
+.page-navigation {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  text-align: center;
+}
+.page-navigation a {
+  color: #495057;
+  text-decoration: none;
+  font-weight: 500;
+}
+.page-navigation a:hover { text-decoration: underline; }
+
+/* --- 試合記録テーブル --- */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto; /* スマホなどで画面幅が足りない場合に横スクロールさせる */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.matches-table {
+  width: 100%;
+  border-collapse: collapse; /* セルの境界線を一本化 */
+}
+
+/* テーブルヘッダー */
+.matches-table th {
+  background-color: #f8f9fa;
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #e9ecef;
+}
+
+/* テーブルのセル */
+.matches-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #e9ecef;
+  vertical-align: middle; /* セル内のコンテンツを上下中央揃え */
+}
+.matches-table tbody tr:last-child td {
+  border-bottom: none; /* 最後の行の下線を消す */
+}
+.matches-table tbody tr:hover {
+  background-color: #f8f9fa; /* マウスを乗せた行をハイライト */
+}
+
+/* 勝敗バッジ */
+.result-badge {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-weight: 600;
+  color: white;
+  font-size: 0.9rem;
+}
+.result-badge.result-win { background-color: #28a745; }
+.result-badge.result-loss { background-color: #dc3545; }
+.result-badge.result-draw { background-color: #ffc107; color: #333; }
+
+/* メモとアクションのセル */
+.notes-cell { color: #6c757d; }
+.action-cell { text-align: right; }
+
+/* データがない場合のセル */
+.no-data-cell {
+  text-align: center;
+  padding: 3rem;
+  color: #6c757d;
+}
+
+/* 共通ボタンスタイル（既にあればこの部分は不要） */
+.btn-outline { background-color: transparent; border: 1px solid #6c757d; color: #6c757d; }
+.btn-outline:hover { background-color: #6c757d; color: white; }

@@ -1,11 +1,60 @@
-<h1>マイページ</h1>
-<p><%= current_user.email %> さん、こんにちは。</p>
+<%# --- ホームページ --- %>
+<div class="home-page-wrapper">
+  <div class="home-container">
 
-<ul>
-  <li><%= link_to "新規記録（入力する）", new_match_path %></li>
-  <li><%= link_to "記録一覧", matches_path %></li>
-  <li><%= link_to "記録集計（分析する）", stats_path %></li>
-  <li><%= link_to "掲示板（雑談する）", shares_path %></li>
-</ul>
+    <%# --- ウェルカムメッセージ --- %>
+    <div class="welcome-header">
+      <h1>ようこそ、<%= current_user.email %> さん！</h1>
+      <p class="site-description">
+        eFootball Analyzerは、あなたのプレイを分析し、さらなる高みへと導くためのパートナーです。  
 
-<p><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></p>
+        さっそく戦績を記録して、自分の強みと弱点を見つけ出しましょう。
+      </p>
+    </div>
+
+    <%# --- 機能紹介カード --- %>
+    <div class="features-grid">
+      <%# 1. 新規記録 %>
+      <div class="feature-card">
+        <div class="card-icon">
+          <i class="fa-solid fa-file-circle-plus"></i>
+        </div>
+        <div class="card-content">
+          <h2>戦績を記録する</h2>
+          <p>試合結果を記録し、データとして蓄積します。マッチングの待ち時間などの隙間時間で簡単に入力できます。</p>
+          <%= link_to "新規記録へ", new_match_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+
+      <%# 2. 記録集計 %>
+      <div class="feature-card">
+        <div class="card-icon">
+          <i class="fa-solid fa-chart-pie"></i>
+        </div>
+        <div class="card-content">
+          <h2>データを分析する</h2>
+          <p>集めたデータから勝率や得失点パターンを自動で分析します。相手の戦術ごとに絞り込み、弱点を克服しましょう。</p>
+          <%= link_to "分析ページへ", stats_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+
+      <%# 3. 掲示板 %>
+      <div class="feature-card">
+        <div class="card-icon">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <div class="card-content">
+          <h2>掲示板で交流する</h2>
+          <p>他のユーザーと情報交換ができます。スカッド相談や選手のレビュー、ガチャ結果の共有などに活用してください。</p>
+          <%= link_to "掲示板へ", shares_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <%# --- ログアウトリンク --- %>
+    <div class="logout-section">
+      <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "logout-link" %>
+    </div>
+
+  </div>
+</div>

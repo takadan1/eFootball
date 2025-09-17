@@ -1,3 +1,20 @@
-<h1>新規記録（入力する）</h1>
-<%= render "form" %>
-<p><%= link_to "記録一覧", matches_path %> | <%= link_to "記録集計（分析する）", stats_path %> | <%= link_to "マイページ", mypage_path %></p>
+<div class="form-wrapper">
+  <div class="form-container">
+    <div class="form-header">
+      <h1>新規試合記録</h1>
+      <p>試合結果を詳細に入力しましょう。</p>
+    </div>
+
+    
+
+    
+    <%= render "form" do |f| %>
+      <%# _form.html.erb の yield :form_actions にこのブロックが渡される %>
+      <% content_for :form_actions do %>
+        <%= link_to "記録一覧へ", matches_path, class: "btn btn-secondary" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+   

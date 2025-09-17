@@ -116,25 +116,25 @@ main.main-content {
 
 .site-footer {
   /* デザイン */
-  height: 25px; /* 高さを指定 */
-  background-color: #000000; /* 黒 */
+  height: 40px;
+  background: linear-gradient(90deg, #182848 0%, #4b6cb7 100%);
   color: white;
 
   /* レイアウト */
   display: flex;
-  align-items: center; /* テキストを垂直方向の中央に */
-  justify-content: center; /* テキストを水平方向の中央に */
+  align-items: center;
+  justify-content: center;
 
-  /* 画面下部に固定 */
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000; /* 他の要素より手前に表示 */
+  /* ★重要★ position: fixed を使わない */
+  /* position プロパティは何も指定しない（デフォルトの static のまま） */
+
+  /* 縮まないように設定 */
+  flex-shrink: 0;
 }
 
 .site-footer p {
   margin: 0;
+  font-size: 0.9rem;
 }
 
 

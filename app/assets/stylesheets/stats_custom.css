@@ -1,0 +1,139 @@
+/* custom.css の末尾に追記 */
+
+/* --- 記録集計（分析）ページ --- */
+.stats-page-wrapper {
+  padding: 2rem 1rem;
+  background-color: #f0f4f8;
+}
+.stats-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* 検索フォームカード */
+.search-card {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.search-card h2 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 1rem;
+}
+.search-card h2 .fa-filter {
+  margin-right: 0.75rem;
+  color: #6c757d;
+}
+.stats-search-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 1.5rem;
+  align-items: flex-end;
+}
+.stats-search-form .form-actions {
+  align-self: end;
+}
+
+/* 分析結果エリア */
+.results-summary {
+  font-size: 1.1rem;
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* 統計カード共通スタイル */
+.stat-card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.stat-card h3 {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+
+/* 勝率グラフ */
+.win-rate-chart {
+  display: flex;
+  width: 100%;
+  height: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #e9ecef;
+}
+.rate-bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  transition: width 0.5s ease;
+}
+.rate-bar.win { background-color: #28a745; }
+.rate-bar.draw { background-color: #ffc107; color: #333; }
+.rate-bar.loss { background-color: #dc3545; }
+.rate-bar span {
+  padding: 0 0.5rem;
+}
+
+/* 平均得失点 */
+.score-stat {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+.score-label {
+  display: block;
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+.score-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.score-value.gf { color: #28a745; }
+.score-value.ga { color: #dc3545; }
+
+/* 最多パターン */
+.top-reason-value {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+}
+.top-reason-pct {
+  font-size: 1rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+/* データがない場合の表示 */
+.no-stats-data {
+  background-color: #fff;
+  padding: 3rem;
+  border-radius: 12px;
+  text-align: center;
+  color: #6c757d;
+}
+.no-stats-data p {
+  margin: 0 0 1.5rem 0;
+  font-size: 1.2rem;
+}

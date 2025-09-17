@@ -1,30 +1,97 @@
-<h1>記録集計（分析する）</h1>
+<%# --- 記録集計（分析）ページ --- %>
+<div class="stats-page-wrapper">
+  <div class="stats-container">
 
-<%= form_with url: stats_path, method: :get, local: true do %>
-  <div>
-    <label>フォーメーション（例: 4123）</label>
-    <%= text_field_tag :formation, params[:formation] %>
+    <%# ページヘッダー %>
+    <div class="page-header">
+      <h1>記録集計・分析</h1>
+      <div class="header-actions">
+        <%= link_to "記録一覧へ", matches_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
+
+    <%# --- 検索・絞り込みフォーム --- %>
+    <div class="search-card">
+      <h2><i class="fa-solid fa-filter"></i> 条件で絞り込む</h2>
+      <%= form_with url: stats_path, method: :get, local: true, class: "stats-search-form" do %>
+        <div class="form-field">
+          <label>相手フォーメーション</label>
+          <%= text_field_tag :formation, params[:formation], class: "form-control", placeholder: "例: 4-1-2-3" %>
+        </div>
+        <div class="form-field">
+          <label>相手チームスタイル</label>
+          <%= select_tag :style,
+                options_for_select([["すべて",""]] + Match.team_styles.keys.map { |k|
+                  [ { "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター", "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック" }[k], k]
+                }, params[:style]),
+                class: "form-control-select" %>
+        </div>
+        <div class="form-actions">
+          <%= submit_tag "この条件で分析する", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+
+    <%# --- 分析結果表示 --- %>
+    <div class="stats-results-wrapper">
+      <div class="results-summary">
+        <p>
+          <% if params[:formation].present? || params[:style].present? %>
+            絞り込み結果：<strong><%= @total %></strong> 試合
+          <% else %>
+            全期間の集計：<strong><%= @total %></strong> 試合
+          <% end %>
+        </p>
+      </div>
+
+      <% if @total > 0 %>
+        <div class="stats-grid">
+          <%# 勝率カード %>
+          <div class="stat-card win-rate-card">
+            <h3>勝率</h3>
+            <div class="win-rate-chart">
+              <div class="rate-bar win" style="width: <%= @win_pct %>%;"><span>勝ち <%= @win_pct %>%</span></div>
+              <div class="rate-bar draw" style="width: <%= @draw_pct %>%;"><span>分け <%= @draw_pct %>%</span></div>
+              <div class="rate-bar loss" style="width: <%= @loss_pct %>%;"><span>負け <%= @loss_pct %>%</span></div>
+            </div>
+          </div>
+
+          <%# 平均得失点カード %>
+          <div class="stat-card">
+            <h3>平均得失点</h3>
+            <div class="score-stat">
+              <div class="score-item">
+                <span class="score-label">平均得点</span>
+                <span class="score-value gf"><%= @avg_gf %></span>
+              </div>
+              <div class="score-item">
+                <span class="score-label">平均失点</span>
+                <span class="score-value ga"><%= @avg_ga %></span>
+              </div>
+            </div>
+          </div>
+
+          <%# 最頻得点理由カード %>
+          <div class="stat-card">
+            <h3>最多得点パターン</h3>
+            <p class="top-reason-value"><%= @top_gf_reason %></p>
+            <p class="top-reason-pct"><%= @top_gf_pct %>% の得点がこのパターンです</p>
+          </div>
+
+          <%# 最頻失点理由カード %>
+          <div class="stat-card">
+            <h3>最多失点パターン</h3>
+            <p class="top-reason-value"><%= @top_ga_reason %></p>
+            <p class="top-reason-pct"><%= @top_ga_pct %>% の失点がこのパターンです</p>
+          </div>
+        </div>
+      <% else %>
+        <div class="no-stats-data">
+          <p>分析対象の試合データがありません。</p>
+          <%= link_to "新しい試合を記録する", new_match_path, class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+
   </div>
-  <div>
-    <label>チームスタイル</label>
-    <%= select_tag :style,
-      options_for_select([["指定なし",""]] + Match.team_styles.keys.map { |k|
-        [ { "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター",
-            "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック" }[k], k]
-      }, params[:style]) %>
-  </div>
-  <%= submit_tag "検索" %>
-<% end %>
-
-<hr>
-
-<p>対象試合数：<strong><%= @total %></strong></p>
-<ul>
-  <li>勝ち：<strong><%= @win_pct %>%</strong>　引き分け：<strong><%= @draw_pct %>%</strong>　負け：<strong><%= @loss_pct %>%</strong></li>
-  <li>平均得点数：<strong><%= @avg_gf %></strong>　平均失点数：<strong><%= @avg_ga %></strong></li>
-  <li>最頻<strong>得点</strong>理由：<strong><%= @top_gf_reason %></strong>（<%= @top_gf_pct %>%）</li>
-  <li>最頻<strong>失点</strong>理由：<strong><%= @top_ga_reason %></strong>（<%= @top_ga_pct %>%）</li>
-</ul>
-
-<p><%= link_to "新規記録（入力する）", new_match_path %> / <%= link_to "記録一覧", matches_path %> / <%= link_to "マイページへ", mypage_path %></p>
-
+</div>

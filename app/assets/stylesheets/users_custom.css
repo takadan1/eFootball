@@ -1,0 +1,91 @@
+/* custom.css の末尾に追記 */
+
+/* --- ホームページ --- */
+.home-page-wrapper {
+  padding: 3rem 1rem;
+  background-color: #f0f4f8;
+  min-height: calc(100vh - 75px - 60px); /* ヘッダーとフッターの高さを引いた分 */
+}
+.home-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ウェルカムメッセージ */
+.welcome-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.welcome-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0 0 1rem 0;
+}
+.welcome-header .site-description {
+  font-size: 1.1rem;
+  color: #6c757d;
+  line-height: 1.7;
+}
+
+/* 機能紹介グリッド */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* 機能紹介カード */
+.feature-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card .card-icon {
+  font-size: 3rem;
+  color: #28a745; /* サイトのテーマカラー */
+  margin-bottom: 1.5rem;
+}
+.feature-card .card-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* カードの高さを揃えるため */
+}
+.feature-card h2 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+.feature-card p {
+  color: #6c757d;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  flex-grow: 1; /* テキストエリアの高さを揃える */
+}
+.feature-card .btn {
+  margin-top: auto; /* ボタンをカードの下端に配置 */
+}
+
+/* ログアウト */
+.logout-section {
+  text-align: center;
+  margin-top: 3rem;
+}
+.logout-link {
+  color: #6c757d;
+  text-decoration: none;
+}
+.logout-link:hover {
+  text-decoration: underline;
+  color: #dc3545;
+}

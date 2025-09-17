@@ -1,39 +1,85 @@
-<!-- app/views/matches/_form.html.erb -->
-<%= form_with model: @match, local: true do |f| %>
-  <fieldset>
-    <legend>勝敗</legend>
-    <%= f.collection_radio_buttons :result, Match.results.keys, :to_s, ->(k){ { "win"=>"勝ち", "draw"=>"引き分け", "loss"=>"負け" }[k] } %>
-  </fieldset>
+<%# app/views/matches/_form.html.erb %>
 
-  <hr>
-  <h3>得点（0〜4）</h3>
-  <% [:gf_counter,:gf_cross,:gf_one_two,:gf_long_shot,:gf_dribble,:gf_build_up,:gf_accident,:gf_other].each do |field| %>
-    <div><%= f.label field, Match::GF_REASONS[field] %> <%= f.number_field field, in: 0..4, step: 1 %></div>
+<%= form_with(model: @match, local: true, class: "match-form") do |f| %>
+
+  <%# エラーメッセージ表示欄 %>
+  <% if @match.errors.any? %>
+    <div class="error-messages">
+      <p><strong>入力内容に <%= @match.errors.count %> 件のエラーがあります</strong></p>
+      <ul>
+        <% @match.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 
-  <h3>失点（0〜4）</h3>
-  <% [:ga_counter,:ga_cross,:ga_one_two,:ga_long_shot,:ga_dribble,:ga_build_up,:ga_accident,:ga_other].each do |field| %>
-    <div><%= f.label field, Match::GA_REASONS[field] %> <%= f.number_field field, in: 0..4, step: 1 %></div>
-  <% end %>
-
-  <hr>
-  <div>
-    <%= f.label :opponent_formation, "相手フォーメーション（例: 4123）" %><br>
-    <%= f.text_field :opponent_formation, placeholder: "4123" %>
+  <%# --- 試合結果セクション --- %>
+  <div class="form-section-card">
+    <h2 class="section-title">1. 試合結果</h2>
+    <div class="form-field result-radio-group">
+      <%= f.collection_radio_buttons :result, Match.results.keys, :to_s, ->(k){ { "win"=>"勝ち", "draw"=>"引き分け", "loss"=>"負け" }[k] } do |b| %>
+        <%= b.label(class: "radio-label result-#{b.value}") { b.radio_button(class: "radio-input") + b.text } %>
+      <% end %>
+    </div>
   </div>
 
-  <div>
-    <%= f.label :team_style, "相手チームスタイル" %><br>
-    <%= f.select :team_style,
-      Match.team_styles.keys.map { |k| [ { "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター",
-        "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック" }[k], k] },
-      include_blank: true %>
+  <%# --- 得点・失点セクション --- %>
+  <div class="form-section-card">
+    <h2 class="section-title">2. 得点・失点の内訳</h2>
+    <div class="score-inputs-grid">
+      <%# 得点入力 %>
+      <div class="score-column">
+        <h3>得点 (0-10)</h3>
+        <% Match::GF_REASONS.each do |field, label| %>
+          <div class="form-field-inline">
+            <%= f.label field, label %>
+            <%= f.number_field field, in: 0..10, step: 1, class: "form-control-number" %>
+          </div>
+        <% end %>
+      </div>
+      <%# 失点入力 %>
+      <div class="score-column">
+        <h3>失点 (0-10)</h3>
+        <% Match::GA_REASONS.each do |field, label| %>
+          <div class="form-field-inline">
+            <%= f.label field, label %>
+            <%= f.number_field field, in: 0..10, step: 1, class: "form-control-number" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 
-  <div>
-    <%= f.label :notes, "その他メモ" %><br>
-    <%= f.text_area :notes, rows: 3, placeholder: "例：サイドバック攻撃的" %>
+  <%# --- 相手情報・メモセクション --- %>
+  <div class="form-section-card">
+    <h2 class="section-title">3. 相手情報とメモ</h2>
+    <div class="details-inputs-grid">
+      <%# 相手フォーメーション %>
+      <div class="form-field">
+        <%= f.label :opponent_formation, "相手フォーメーション" %>
+        <%= f.text_field :opponent_formation, placeholder: "例: 4-1-2-3", class: "form-control" %>
+      </div>
+      <%# チームスタイル %>
+      <div class="form-field">
+        <%= f.label :team_style, "相手チームスタイル" %>
+        <%= f.select :team_style,
+              Match.team_styles.keys.map { |k| [ { "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター", "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック" }[k], k] },
+              { include_blank: "選択してください" },
+              { class: "form-control-select" } %>
+      </div>
+    </div>
+    <%# メモ %>
+    <div class="form-field">
+      <%= f.label :notes, "その他メモ" %>
+      <%= f.text_area :notes, rows: 4, placeholder: "例：相手の左サイドバックは攻撃的だった", class: "form-control" %>
+    </div>
   </div>
 
-  <%= f.submit %>
+  <%# --- フォーム送信アクション --- %>
+  <div class="form-actions main-submit-actions">
+    <%# `yield` を使って、呼び出し元のビューからボタンを追加できるようにする %>
+    <%= yield :form_actions %>
+    <%= f.submit (@match.new_record? ? "記録を作成する" : "記録を更新する"), class: "btn btn-primary" %>
+  </div>
 <% end %>

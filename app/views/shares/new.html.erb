@@ -1,19 +1,45 @@
-<h1>掲示板（雑談する）</h1>
-<h3>新規投稿</h3>
-<%= form_for @share do |f| %>
+<%# --- 新規投稿フォーム --- %>
+<div class="form-wrapper">
+  <div class="form-container">
 
-  <div class="field">
-    <%= f.label :画像　　 %>
-    <%= f.file_field :image %>
+    <%# フォームヘッダー %>
+    <div class="form-header">
+      <h1>新規投稿</h1>
+      <p>画像とコメントを入力して、投稿してください。</p>
+    </div>
+
+    <%# フォーム本体 %>
+    <%= form_with(model: @share, local: true, class: "main-form") do |f| %>
+
+      <%# 画像フィールド %>
+      <div class="form-field">
+        <%= f.label :image, "画像" %>
+        <%= f.file_field :image, class: "form-control-file" %>
+      </div>
+
+      <%# コメントフィールド %>
+      <div class="form-field">
+        <%= f.label :about, "コメント" %>
+        <%= f.text_area :about, class: "form-control", placeholder: "コメントをここに入力..." %>
+      </div>
+
+      <%# アクションボタン %>
+      <div class="form-actions">
+        <%= link_to "一覧に戻る", shares_path, class: "btn btn-secondary" %>
+        <%= f.submit "投稿する", class: "btn btn-primary" %>
+      </div>
+
+    <% end %>
+    
+    <% if @share.errors.any? %>
+  <div class="error-messages">
+    <ul>
+      <% @share.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
   </div>
-
-    <div class="field">
-    <%= f.label :コメント %>
-    <%= f.text_field :about, :size => 140 %>
-  </div>
-  
-
-  <%= f.submit "投稿する" %>
 <% end %>
 
-<%= link_to "一覧に戻る", shares_path %>
+  </div>
+</div>

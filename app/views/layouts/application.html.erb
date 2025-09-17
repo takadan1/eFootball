@@ -15,9 +15,44 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%# app/views/layouts/application.html.erb の <head> 内に追加 %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
   </head>
 
+<body>
   <body>
+  <%# ===== ヘッダー ===== %>
+  <header class="site-header">
+
+    <%# ロゴとサイト名をまとめたリンク %>
+    <%= link_to root_path, class: "header-brand" do %>
+      <%= image_tag "logo.png", alt: "ロゴ", class: "brand-logo" %>
+      <span class="brand-text">eFootball analyzer</span>
+    <% end %>
+
+    <%# ナビゲーションメニュー %>
+    <nav class="header-nav">
+      <ul>
+        <li><%= link_to "掲示板", shares_path %></li>
+        <li><%= link_to "記録一覧", matches_path %></li>
+        <li><%= link_to "記録する", new_match_path %></li>
+        <li><%= link_to "分析する", stats_path %></li>
+      </ul>
+    </nav>
+
+  </header>
+  <%# ===== ヘッダーここまで ===== %>
+
+
+  <%# ===== メインコンテンツ ===== %>
+  <main class="main-content">
     <%= yield %>
-  </body>
-</html>
+  </main>
+  <%# ===== メインコンテンツここまで ===== %>
+
+  <footer class="site-footer">
+    <p>&copy; eFootball analyzer. All Rights Reserved.</p>
+  </footer>
+
+</body>

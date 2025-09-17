@@ -1,36 +1,79 @@
-<h1>試合詳細</h1>
-<p>日時：<%= l @match.created_at, format: :short %></p>
-<p>結果：<%= { "win"=>"勝ち", "draw"=>"引き分け", "loss"=>"負け" }[@match.result] %></p>
-<p>相手フォメ：<%= @match.opponent_formation.presence || "-" %></p>
-<p>スタイル：<%= @match.team_style ? {
-  "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター",
-  "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック"
-}[@match.team_style] : "-" %></p>
+<%# --- 試合詳細ページ --- %>
+<div class="match-detail-wrapper">
+  <div class="match-detail-container">
 
-<h3>得点内訳</h3>
-<ul>
-  <% Match::GF_REASONS.each do |k, label| %>
-    <li><%= label %>：<%= @match.send(k) %></li>
-  <% end %>
-</ul>
+    <%# ページヘッダー %>
+    <div class="page-header">
+      <h1>試合詳細</h1>
+      <div class="header-actions">
+        <%= link_to "一覧へ戻る", matches_path, class: "btn btn-secondary" %>
+      </div>
+    </div>
 
-<h3>失点内訳</h3>
-<ul>
-  <% Match::GA_REASONS.each do |k, label| %>
-    <li><%= label %>：<%= @match.send(k) %></li>
-  <% end %>
-</ul>
+    <%# 基本情報セクション %>
+    <div class="detail-section basic-info">
+      <div class="info-item">
+        <span class="info-label">日時</span>
+        <span class="info-value"><%= l @match.created_at, format: :long %></span>
+      </div>
+      <div class="info-item result-<%= @match.result %>">
+        <span class="info-label">結果</span>
+        <span class="info-value"><%= { "win"=>"勝ち", "draw"=>"引き分け", "loss"=>"負け" }[@match.result] %></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">相手フォメ</span>
+        <span class="info-value"><%= @match.opponent_formation.presence || "-" %></span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">チームスタイル</span>
+        <span class="info-value"><%= @match.team_style ? { "short_counter"=>"ショートカウンター", "long_counter"=>"ロングカウンター", "possession"=>"ポゼッション", "long_ball"=>"ロングボール", "side_attack"=>"サイドアタック" }[@match.team_style] : "-" %></span>
+      </div>
+    </div>
 
-<p>メモ：<%= simple_format(@match.notes) %></p>
+    <%# 得点・失点セクション %>
+    <div class="score-breakdown">
+      <%# 得点内訳 %>
+      <div class="detail-section">
+        <h2>得点内訳</h2>
+        <ul class="score-list">
+          <% Match::GF_REASONS.each do |k, label| %>
+            <li>
+              <span class="score-label"><%= label %></span>
+              <span class="score-value"><%= @match.send(k) %></span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <%# 失点内訳 %>
+      <div class="detail-section">
+        <h2>失点内訳</h2>
+        <ul class="score-list">
+          <% Match::GA_REASONS.each do |k, label| %>
+            <li>
+              <span class="score-label"><%= label %></span>
+              <span class="score-value"><%= @match.send(k) %></span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
 
-<hr>
-<p>
-  <%= link_to "編集", edit_match_path(@match) %>
-  |
-  <%# button_to は method: :delete を内包するので Turbo/Rails7 で確実に動きます %>
-  <%= button_to "削除", match_path(@match),
-        method: :delete,
-        form: { data: { turbo_confirm: "本当に削除しますか？" } } %>
-</p>
+    <%# メモセクション %>
+    <div class="detail-section">
+      <h2>メモ</h2>
+      <div class="notes-content">
+        <%= simple_format(@match.notes.presence || "メモはありません。") %>
+      </div>
+    </div>
 
-<p><%= link_to "一覧へ戻る", matches_path %></p>
+    <%# ページ下部のアクション %>
+    <div class="page-footer-actions">
+      <%= link_to "編集", edit_match_path(@match), class: "btn btn-secondary" %>
+      <%= button_to "削除", match_path(@match),
+            method: :delete,
+            class: "btn btn-danger",
+            form: { data: { turbo_confirm: "この試合記録を本当に削除しますか？" } } %>
+    </div>
+
+  </div>
+</div>

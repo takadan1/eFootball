@@ -1,0 +1,449 @@
+
+/* --- 掲示板ページ全体 --- */
+.page-container {
+  max-width: 960px; /* コンテンツの最大幅を指定 */
+  margin: 2rem auto; /* 上下に余白、左右は自動で中央揃え */
+  padding: 0 1rem;
+}
+
+/* --- ページ上部のヘッダー --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* --- 投稿セクション --- */
+.posts-section .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.posts-section h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* --- 投稿カードのデザイン --- */
+.posts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* レスポンシブなグリッドレイアウト */
+  gap: 1.5rem; /* カード間の隙間 */
+}
+
+.post-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden; /* 角丸を画像にも適用 */
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.post-card:hover {
+  transform: translateY(-5px); /* 少し浮き上がるエフェクト */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card-image-wrapper {
+  width: 100%;
+  height: 200px; /* 画像の高さを固定 */
+  background-color: #f0f0f0;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 画像の比率を保ったままエリアを埋める */
+}
+
+.card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* カードの高さを揃えるために追加 */
+}
+
+.card-text {
+  margin: 0 0 1rem 0;
+  flex-grow: 1; /* テキストエリアを伸ばして「詳細へ」ボタンの位置を揃える */
+  color: #555;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* ボタン間の隙間 */
+  flex-wrap: wrap; /* ボタンが多すぎるときに折り返す */
+}
+
+.no-posts-message {
+  color: #777;
+  font-style: italic;
+}
+
+
+/* --- 共通ボタンのデザイン --- */
+.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* プライマリボタン (例: 新規投稿) */
+.btn-primary {
+  background-color: #28a745; /* ヘッダーの緑と合わせる */
+  color: white;
+  border-color: #28a745;
+}
+.btn-primary:hover {
+  background-color: #218838;
+  border-color: #218838;
+}
+
+/* セカンダリボタン (例: 編集) */
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  border-color: #6c757d;
+}
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #5a6268;
+}
+
+/* アウトラインボタン (例: 詳細へ) */
+.btn-outline {
+  background-color: transparent;
+  color: #28a745;
+  border-color: #28a745;
+}
+.btn-outline:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+/* 危険な操作ボタン (例: 削除) */
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+/* button_toヘルパー用の調整 */
+form.button_to {
+  display: inline; /* 他のボタンと横並びにする */
+}
+
+
+
+
+
+
+/* custom.css の末尾に追記 */
+
+/* --- フォームページの汎用スタイル --- */
+
+/* 画面全体を覆うラッパー（背景色など） */
+.form-wrapper {
+  padding: 2rem 1rem;
+  background-color: #f0f4f8; /* サイトの基本背景色 */
+}
+
+/* フォーム本体のコンテナ（白いカード部分） */
+.form-container {
+  max-width: 720px;
+  margin: 0 auto; /* 中央揃え */
+  padding: 2.5rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* フォームのヘッダー部分 */
+.form-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  color: #333;
+}
+.form-header p {
+  margin: 0 0 2rem 0;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+/* --- フォーム要素のスタイル --- */
+
+/* 各入力フィールド */
+.form-field {
+  margin-bottom: 1.5rem;
+}
+
+/* ラベル */
+.form-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+/* テキスト入力欄 (text_area) */
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 120px; /* テキストエリアの最小の高さ */
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-family: inherit; /* bodyのフォントを継承 */
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* ファイル選択欄 */
+.form-control-file {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+}
+/* ファイル選択ボタンのモダンなスタイル */
+.form-control-file::file-selector-button {
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  border: 1px solid #ced4da;
+  background-color: #f8f9fa;
+  color: #495057;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.form-control-file::file-selector-button:hover {
+  background-color: #e9ecef;
+}
+
+/* 入力欄がフォーカスされた時のスタイル */
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.15);
+  outline: none;
+}
+
+/* --- フォームのアクションボタン --- */
+.form-actions {
+  display: flex;
+  justify-content: flex-end; /* ボタンを右揃えに */
+  gap: 1rem; /* ボタン間の隙間 */
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+/* 共通ボタンスタイル（掲示板ページと共通化） */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+/* プライマリボタン (投稿する) */
+.btn-primary { background-color: #28a745; color: white; border-color: #28a745; }
+.btn-primary:hover { background-color: #218838; border-color: #218838; }
+
+/* セカンダリボタン (戻る) */
+.btn-secondary { background-color: #6c757d; color: white; border-color: #6c757d; }
+.btn-secondary:hover { background-color: #5a6268; border-color: #5a6268; }
+
+
+
+
+.error-messages {
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  color: #721c24;
+}
+/* ... (ul, liのスタイル) ... */
+
+
+
+
+
+
+
+/* custom.css の末尾に追記 */
+
+/* --- 編集フォーム特有のスタイル --- */
+
+/* 画像プレビューエリア */
+.image-preview {
+  margin-top: 0.5rem;
+  max-width: 300px; /* プレビュー画像の最大幅 */
+}
+
+/* プレビュー画像 */
+.current-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+
+
+
+
+
+
+/* custom.css の末尾に追記 */
+
+/* --- 投稿詳細ページ --- */
+
+.detail-page-wrapper {
+  padding: 2rem 1rem;
+  background-color: #f0f4f8;
+}
+
+.detail-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 投稿本体のコンテナ */
+.post-main-content {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.post-image-wrapper {
+  margin-bottom: 2rem;
+}
+.post-image {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: contain; /* 画像全体が見えるように */
+  border-radius: 12px;
+}
+
+.post-body .post-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+}
+.post-body .post-meta {
+  font-size: 0.9rem;
+  color: #6c757d;
+  text-align: right;
+  margin-top: 2rem;
+}
+
+/* --- コメントセクション --- */
+.comments-section {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
+}
+.comments-section h2 {
+  margin: 0 0 2rem 0;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 1rem;
+}
+.comments-section h2 .fa-comments {
+  margin-right: 0.75rem;
+  color: #28a745;
+}
+
+/* コメント一覧 */
+.comments-list {
+  margin-bottom: 2rem;
+}
+.comment-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #f0f4f8;
+}
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+.comment-author-icon .fa-user-circle {
+  font-size: 2.5rem; /* 40px */
+  color: #ced4da;
+}
+
+.comment-content .comment-text {
+  margin: 0 0 0.5rem 0;
+  line-height: 1.6;
+  white-space: pre-wrap; /* 改行を反映 */
+}
+.comment-content .comment-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.no-comments-message {
+  color: #6c757d;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+/* コメント投稿フォーム */
+.comment-form-wrapper {
+  padding-top: 2rem;
+  border-top: 1px solid #e9ecef;
+}
+.comment-form {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.comment-form .form-control {
+  flex-grow: 1; /* テキストエリアを可能な限り広げる */
+  min-height: 40px;
+}
+.comment-form .btn {
+  flex-shrink: 0; /* ボタンが縮まないようにする */
+}
+

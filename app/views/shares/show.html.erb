@@ -1,33 +1,70 @@
-<h1>掲示板（雑談する）</h1>
-<h3>詳細</h3>
-<div class="share">
+<%# --- 投稿詳細ページ --- %>
+<div class="detail-page-wrapper">
+  <div class="detail-container">
 
-<% if @share.image.attached? %>
-  <%= image_tag @share.image, size: '250x200' %>
-<% end %>
-  <br><%= @share.about %> / <%= @share.created_at %></div>
+    <%# --- 投稿本体 --- %>
+    <div class="post-main-content">
+      <div class="page-header">
+        <h1>投稿詳細</h1>
+        <div class="header-actions">
+          <%= link_to "一覧に戻る", shares_path, class: "btn btn-secondary" %>
+          <% if user_signed_in? && current_user.id == @share.user_id %>
+            <%= link_to "編集する", edit_share_path(@share.id), class: "btn btn-outline" %>
+          <% end %>
+        </div>
+      </div>
 
-<div class="comment-wrapper">
-  <p>コメント一覧</p>
-  <% @comments.each do |c| %>
-    <div>
-      <!--<%= c.user.email unless c.user.blank? %>-->
-      <%= c.content %>
-    </div>
-      <br>
-  <% end %>
-
-  <% if user_signed_in? %>
-    <%= form_with(model: [@share, @comment], local: true) do |f| %>
-      <%= f.text_area :content %>
-      <%= button_tag type: "submit" do %>
-        <i class="far fa-comments"></i> コメントする
+      <%# 投稿画像 %>
+      <% if @share.image.attached? %>
+        <div class="post-image-wrapper">
+          <%= image_tag @share.image, class: "post-image" %>
+        </div>
       <% end %>
-    <% end %>
-  <% end %>
-</div>
 
-<%= link_to "一覧に戻る", shares_path %>
-<% if user_signed_in? && current_user.id == @share.user_id %>
-<%= link_to "編集する", edit_share_path(@share.id) %>
-<% end %>
+      <%# 投稿テキストと情報 %>
+      <div class="post-body">
+        <p class="post-text"><%= simple_format(@share.about) %></p>
+        <p class="post-meta">投稿日: <%= l @share.created_at, format: :long %></p>
+      </div>
+    </div>
+    <%# --- 投稿本体ここまで --- %>
+
+
+    <%# --- コメントセクション --- %>
+    <div class="comments-section">
+      <h2><i class="fa-regular fa-comments"></i> コメント</h2>
+
+      <%# コメント一覧 %>
+      <div class="comments-list">
+        <% if @comments.present? %>
+          <% @comments.each do |c| %>
+            <div class="comment-item">
+              <div class="comment-author-icon">
+                <%# 将来的にユーザーアイコンを表示する場合はここに image_tag を置く %>
+                <i class="fa-solid fa-user-circle"></i>
+              </div>
+              <div class="comment-content">
+                <p class="comment-text"><%= c.content %></p>
+                <p class="comment-meta"><%= l c.created_at, format: :short %></p>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="no-comments-message">まだコメントはありません。</p>
+        <% end %>
+      </div>
+
+      <%# コメント投稿フォーム %>
+      <% if user_signed_in? %>
+        <div class="comment-form-wrapper">
+          <%= form_with(model: [@share, @comment], local: true, class: "comment-form") do |f| %>
+            <%= f.text_area :content, class: "form-control", placeholder: "コメントを追加..." %>
+            <%= f.submit "コメントする", class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <%# --- コメントセクションここまで --- %>
+
+  </div>
+</div>

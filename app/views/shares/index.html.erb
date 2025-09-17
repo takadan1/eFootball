@@ -1,29 +1,45 @@
-<h1>掲示板（雑談する）</h1>
+<%# 掲示板ページのコンテナ %>
+<div class="page-container">
 
-<%= link_to "記録一覧へ", matches_path %> / <%= link_to "マイページへ", mypage_path %> 
-<h3>投稿一覧</h3>
-<%= link_to "新しく投稿する", new_share_path %>
-<br><br>
-  <hr>
-<div class="shares-container">
-  <% @shares.each do |t| %>
-   <div class="share">
+  <%# ページヘッダー %>
+  <div class="page-header">
+    <h1>掲示板（雑談する）</h1>   
+  </div>
 
-    <% if t.image.attached? %>
-            <%= image_tag t.image, size: '250x200'%>
-    <% end %>
-    </div><%= t.about %>
-    </div><%= link_to "詳細へ", share_path(t.id) %>
+  <%# 投稿セクション %>
+  <div class="posts-section">
+    <div class="section-header">
+      <h3>投稿一覧</h3>
+      <%= link_to "新しく投稿する", new_share_path, class: "btn btn-primary" %>
+    </div>
 
-    <% if user_signed_in? && current_user.id == t.user_id %>
-       <%= link_to "編集する", edit_share_path(t.id) %>
-       <%= button_to "削除する", share_path(t.id), method: :delete %> 
-    <% end %>
-   </div>
-    <hr>
-  <% end %>
+    <%# 投稿リスト %>
+    <div class="posts-list">
+      <% if @shares.present? %>
+        <% @shares.each do |t| %>
+          <%# 投稿カード %>
+          <div class="post-card">
+            <% if t.image.attached? %>
+              <div class="card-image-wrapper">
+                <%= image_tag t.image, class: "card-image" %>
+              </div>
+            <% end %>
+            <div class="card-body">
+              <p class="card-text"><%= t.about %></p>
+              <div class="card-actions">
+                <%= link_to "詳細へ", share_path(t.id), class: "btn btn-outline" %>
+                <% if user_signed_in? && current_user.id == t.user_id %>
+                  <%= link_to "編集する", edit_share_path(t.id), class: "btn btn-secondary" %>
+                  <%= button_to "削除する", share_path(t.id), method: :delete, class: "btn btn-danger" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="no-posts-message">まだ投稿がありません。</p>
+      <% end %>
+    </div>
+  </div>
+
 </div>
-
-
-
-

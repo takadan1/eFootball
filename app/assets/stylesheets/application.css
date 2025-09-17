@@ -13,3 +13,128 @@
  *= require_tree .
  *= require_self
  */
+
+
+/* --- 全体の基本スタイル --- */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  background-color: #f0f4f8; /* サイト全体の背景色 */
+  color: #333;
+}
+
+main.main-content {
+  padding: 2rem; /* ページの主要コンテンツ部分の余白 */
+}
+
+
+/* --- ヘッダー --- */
+.site-header {
+  /* レイアウト */
+  display: flex;
+  justify-content: space-between; /* 子要素を両端に配置 */
+  align-items: center; /* 子要素を垂直方向の中央に揃える */
+
+  /* デザイン */
+  height: 70px; /* ヘッダーの高さ */
+  padding: 0 2rem; /* 左右の余白 (remはフォントサイズに依存する単位) */
+  /* 緑のグラデーション */
+  background: linear-gradient(90deg, #28a745, #218838);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  /* スクロールしても上部に固定 */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+
+/* --- ロゴとサイト名 (ヘッダー左側) --- */
+.header-brand {
+  display: flex; /* ロゴとテキストを横並びにする */
+  align-items: center; /* 垂直方向の中央揃え */
+  text-decoration: none; /* リンクの下線を消す */
+  gap: 12px; /* ロゴとテキストの間の隙間 */
+}
+/* ロゴとサイト名を囲むリンク(aタグ)の基本スタイルを追加 */
+.header-brand {
+  padding: 0.3rem 0.6rem; /* 上下左右に少し余白を追加 */
+  border-radius: 8px;      /* 角を丸める */
+  transition: background-color 0.2s ease-in-out; /* 背景色の変化を滑らかに */
+}
+
+/* ロゴ画像 */
+.brand-logo {
+  height: 45px; /* ★ロゴの高さをここで調整★ */
+  width: auto;  /* 横幅は自動調整 */
+  border-radius: 8px; /* ロゴの角を少し丸める */
+  background-color: rgba(12, 46, 28, 0.733); /* ロゴの背景が透明な場合に備えて白背景を追加 */
+  padding: 2px; /* ロゴの周りに少し余白 */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* サイト名テキスト */
+.brand-text {
+  color: #ffffff;
+  font-size: 1.4rem; /* 文字サイズ */
+  font-weight: 600; /* 文字の太さ */
+  letter-spacing: 0.5px; /* 文字間隔 */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* 文字に少し影をつける */
+}
+
+
+/* --- ナビゲーションメニュー (ヘッダー右側) --- */
+.header-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; /* リストの黒丸を消す */
+  display: flex;
+  gap: 1rem; /* メニュー項目間の隙間 */
+}
+
+.header-nav a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+/* マウスを乗せた時のスタイル */
+.header-nav a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+.header-brand:hover {
+  background-color: rgba(255, 255, 255, 0.15); 
+}
+
+
+
+
+.site-footer {
+  /* デザイン */
+  height: 25px; /* 高さを指定 */
+  background-color: #000000; /* 黒 */
+  color: white;
+
+  /* レイアウト */
+  display: flex;
+  align-items: center; /* テキストを垂直方向の中央に */
+  justify-content: center; /* テキストを水平方向の中央に */
+
+  /* 画面下部に固定 */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* 他の要素より手前に表示 */
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+

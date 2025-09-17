@@ -1,0 +1,122 @@
+/* custom.css の末尾に追記 */
+
+/* --- 試合詳細ページ --- */
+
+.match-detail-wrapper {
+  padding: 2rem 1rem;
+  background-color: #f0f4f8;
+}
+
+.match-detail-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+}
+
+/* ページヘッダー */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+.page-header h1 { margin: 0; font-size: 2rem; }
+.page-header .header-actions { display: flex; gap: 0.5rem; }
+
+/* 各詳細セクション */
+.detail-section {
+  margin-bottom: 2.5rem;
+}
+.detail-section h2 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+  color: #333;
+  border-bottom: 2px solid #28a745; /* ヘッダーの緑色 */
+  padding-bottom: 0.5rem;
+}
+
+/* 基本情報セクション */
+.basic-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+.info-item {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #6c757d;
+}
+.info-label {
+  display: block;
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+.info-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #343a40;
+}
+
+/* 試合結果による色分け */
+.info-item.result-win { border-left-color: #28a745; } /* 勝ち: 緑 */
+.info-item.result-loss { border-left-color: #dc3545; } /* 負け: 赤 */
+.info-item.result-draw { border-left-color: #ffc107; } /* 引き分け: 黄 */
+
+/* 得点・失点セクション */
+.score-breakdown {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.score-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.score-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+.score-list li:last-child {
+  border-bottom: none;
+}
+.score-label { color: #495057; }
+.score-value { font-weight: 700; font-size: 1.1rem; }
+
+/* メモセクション */
+.notes-content {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  min-height: 80px;
+  line-height: 1.7;
+  white-space: pre-wrap; /* simple_formatの改行を活かす */
+}
+
+/* ページ下部のアクションボタン */
+.page-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e9ecef;
+}
+
+/* 共通ボタンスタイル（既にあればこの部分は不要） */
+.btn { display: inline-block; padding: 0.6rem 1.2rem; border: 1px solid transparent; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 1rem; text-align: center; cursor: pointer; transition: all 0.2s ease; }
+.btn-secondary { background-color: #6c757d; color: white; border-color: #6c757d; }
+.btn-secondary:hover { background-color: #5a6268; border-color: #5a6268; }
+.btn-danger { background-color: #dc3545; color: white; border-color: #dc3545; }
+.btn-danger:hover { background-color: #c82333; border-color: #bd2130; }
+form.button_to { display: inline; }

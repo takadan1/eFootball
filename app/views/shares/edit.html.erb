@@ -1,5 +1,52 @@
-<%= form_for @share do |f| %>
-  <%= f.label :about %>
-  <%= f.text_field :about, :size => 140 %> 
-  <%= f.submit "編集する" %>
-<% end %>
+<%# --- 投稿編集フォーム --- %>
+<div class="form-wrapper">
+  <div class="form-container">
+
+    <%# フォームヘッダー %>
+    <div class="form-header">
+      <h1>投稿を編集</h1>
+      <p>コメントを修正して、更新してください。</p>
+    </div>
+
+    <%# フォーム本体 %>
+    <%= form_with(model: @share, local: true, class: "main-form") do |f| %>
+
+      <%# エラーメッセージ表示欄 %>
+      <% if @share.errors.any? %>
+        <div class="error-messages">
+          <ul>
+            <% @share.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%# 画像が既に添付されている場合、プレビューを表示 %>
+      <% if @share.image.attached? %>
+        <div class="form-field">
+          <label>現在の画像</label>
+          <div class="image-preview">
+            <%= image_tag @share.image, class: "current-image" %>
+          </div>
+          <%# (オプション) 画像を変更する機能を追加する場合はここに input を置く %>
+          <%# <%= f.label :image, "画像を差し替える" %>
+          <%# <%= f.file_field :image, class: "form-control-file" %>
+        </div>
+      <% end %>
+
+      <%# コメント編集フィールド %>
+      <div class="form-field">
+        <%= f.label :about, "コメント" %>
+        <%= f.text_area :about, class: "form-control", placeholder: "コメントをここに入力..." %>
+      </div>
+
+      <%# アクションボタン %>
+      <div class="form-actions">
+        <%= link_to "詳細に戻る", share_path(@share), class: "btn btn-secondary" %>
+        <%= f.submit "更新する", class: "btn btn-primary" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

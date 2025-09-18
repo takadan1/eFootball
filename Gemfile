@@ -69,3 +69,6 @@ group :production do
 end
 
 gem 'sass-rails'
+
+
+gem "ruby-vips"

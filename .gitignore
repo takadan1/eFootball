@@ -33,3 +33,12 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+
+
+# .gitignore
+
+# ... 他の設定 ...
+
+# Ignore cloudinary configuration.
+/config/cloudinary.yml

@@ -103,22 +103,6 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-
-
-
-
-  # RENDER_PRECOMPILE が 'true' でない場合（＝通常のサーバー起動時）のみ、
-  # Cloudinaryの認証情報を設定する
-  # これにより、assets:precompile 時のエラーを防ぐ
-  if ENV['RENDER_PRECOMPILE'] != 'true'
-    config.cloudinary.cloud_name = ENV['CLOUD_NAME']
-    config.cloudinary.api_key = ENV['CLOUDINARY_API_KEY']
-    config.cloudinary.api_secret = ENV['CLOUDINARY_API_SECRET']
-    config.cloudinary.secure = true # HTTPSリンクを生成するために推奨
-  end
-
-
 end
-
 
 

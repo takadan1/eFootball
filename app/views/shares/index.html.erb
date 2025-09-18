@@ -28,10 +28,29 @@
               <p class="card-text"><%= t.about %></p>
               <div class="card-actions">
                 <%= link_to "詳細へ", share_path(t.id), class: "btn btn-outline" %>
-                <% if user_signed_in? && current_user.id == t.user_id %>
-                  <%= link_to "編集する", edit_share_path(t.id), class: "btn btn-secondary" %>
-                  <%= button_to "削除する", share_path(t.id), method: :delete, class: "btn btn-danger" %>
-                <% end %>
+
+
+                <%# app/views/shares/index.html.erb のループ内 %>
+
+<%# 投稿者本人、または管理者が操作できるようにする %>
+<% if user_signed_in? && (current_user.id == t.user_id || current_user.admin?) %>
+  <div class="card-actions">
+    <%# 投稿者本人のみ編集可能 %>
+    <% if current_user.id == t.user_id %>
+      <%= link_to "編集", edit_share_path(t.id), class: "btn btn-secondary" %>
+    <% end %>
+
+    <%# 投稿者本人または管理者が削除可能 %>
+    <%= button_to "削除", share_path(t.id),
+      method: :delete,
+      form: { data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } },
+      class: "btn btn-danger" %>
+  </div>
+<% end %>
+
+
+
+
               </div>
             </div>
           </div>

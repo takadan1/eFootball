@@ -112,18 +112,6 @@
 .score-value.gf { color: #28a745; }
 .score-value.ga { color: #dc3545; }
 
-/* 最多パターン */
-.top-reason-value {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0 0 0.5rem 0;
-}
-.top-reason-pct {
-  font-size: 1rem;
-  color: #6c757d;
-  margin: 0;
-}
 
 /* データがない場合の表示 */
 .no-stats-data {
@@ -136,4 +124,37 @@
 .no-stats-data p {
   margin: 0 0 1.5rem 0;
   font-size: 1.2rem;
+}
+
+/* --- 得点・失点パターン TOP3 リスト --- */
+.top-reasons-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+}
+.top-reasons-list li {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0.5rem;
+}
+.rank-badge {
+  display: inline-block;
+  min-width: 25px;
+  text-align: center;
+  font-weight: 700;
+  color: #fff;
+  background-color: #007bff;
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin-right: 0.5rem;
+}
+.top-reasons-list li:first-child .rank-badge { background-color: #ffc107; }
+.top-reasons-list li:nth-child(2) .rank-badge { background-color: #adb5bd; }
+.top-reasons-list li:nth-child(3) .rank-badge { background-color: #8b5a2b; }
+
+/* 円グラフのコンテナスタイル */
+.stat-card canvas {
+  max-height: 250px;
+  margin-top: 1rem;
 }

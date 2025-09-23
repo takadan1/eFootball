@@ -21,10 +21,10 @@
         <div class="form-field">
           <label>相手チームスタイル</label>
           <%= select_tag :style,
-                options_for_select([["すべて",""]] + Match.team_styles.keys.map { |k|
-                  [ { "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター", "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック" }[k], k]
-                }, params[:style]),
-                class: "form-control-select" %>
+              options_for_select([["すべて",""]] + Match.team_styles.keys.map { |k|
+                [ { "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター", "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック" }[k], k]
+              }, params[:style]),
+              class: "form-control-select" %>
         </div>
         <div class="form-actions">
           <%= submit_tag "この条件で分析する", class: "btn btn-primary" %>
@@ -71,18 +71,114 @@
             </div>
           </div>
 
-          <%# 最頻得点理由カード %>
+          <%# 得点パターン TOP3 カード %>
           <div class="stat-card">
-            <h3>最多得点パターン</h3>
-            <p class="top-reason-value"><%= @top_gf_reason %></p>
-            <p class="top-reason-pct"><%= @top_gf_pct %>% の得点がこのパターンです</p>
+            <h3>得点パターン TOP3</h3>
+            <% if @top_gf_reasons.present? %>
+              <%# 順位と%のリスト表示 %>
+              <ul class="top-reasons-list">
+                <% @top_gf_reasons.each do |reason| %>
+                  <li>
+                    <span class="rank-badge"><%= reason[:rank] %>位</span>
+                    <%= reason[:name] %>: <strong><%= reason[:percentage] %>%</strong>
+                  </li>
+                <% end %>
+              </ul>
+              
+              <%# 円グラフ表示 %>
+              <canvas id="gfChart" class="mt-4"></canvas>
+              <script>
+                // Turbo Driveに対応するため、関数でラップする
+                const drawGfChart = () => {
+                  const gfData = {
+                    labels: <%= @top_gf_reasons.map { |r| r[:name] }.to_json.html_safe %>,
+                    datasets: [{
+                      data: <%= @top_gf_reasons.map { |r| r[:count] }.to_json.html_safe %>,
+                      backgroundColor: [
+                        "rgba(40, 167, 69, 0.8)",
+                        "rgba(255, 193, 7, 0.8)",
+                        "rgba(220, 53, 69, 0.8)"
+                      ],
+                      borderColor: ["#fff", "#fff", "#fff"]
+                    }]
+                  };
+                  new Chart(document.getElementById("gfChart"), {
+                    type: "pie",
+                    data: gfData,
+                    options: {
+                      responsive: true,
+                      plugins: {
+                        legend: { position: "bottom" },
+                        title: { display: false }
+                      }
+                    }
+                  });
+                };
+                // ページ読み込み完了後に実行
+                document.addEventListener("turbo:load", drawGfChart);
+                // 初回読み込み時のために、ページ内にグラフコンテナが存在する場合に実行
+                if (document.getElementById("gfChart")) {
+                  drawGfChart();
+                }
+              </script>
+            <% else %>
+              <p>データがありません</p>
+            <% end %>
           </div>
 
-          <%# 最頻失点理由カード %>
+          <%# 失点パターン TOP3 カード %>
           <div class="stat-card">
-            <h3>最多失点パターン</h3>
-            <p class="top-reason-value"><%= @top_ga_reason %></p>
-            <p class="top-reason-pct"><%= @top_ga_pct %>% の失点がこのパターンです</p>
+            <h3>失点パターン TOP3</h3>
+            <% if @top_ga_reasons.present? %>
+              <%# 順位と%のリスト表示 %>
+              <ul class="top-reasons-list">
+                <% @top_ga_reasons.each do |reason| %>
+                  <li>
+                    <span class="rank-badge"><%= reason[:rank] %>位</span>
+                    <%= reason[:name] %>: <strong><%= reason[:percentage] %>%</strong>
+                  </li>
+                <% end %>
+              </ul>
+
+              <%# 円グラフ表示 %>
+              <canvas id="gaChart" class="mt-4"></canvas>
+              <script>
+                // Turbo Driveに対応するため、関数でラップする
+                const drawGaChart = () => {
+                  const gaData = {
+                    labels: <%= @top_ga_reasons.map { |r| r[:name] }.to_json.html_safe %>,
+                    datasets: [{
+                      data: <%= @top_ga_reasons.map { |r| r[:count] }.to_json.html_safe %>,
+                      backgroundColor: [
+                        "rgba(220, 53, 69, 0.8)",
+                        "rgba(255, 193, 7, 0.8)",
+                        "rgba(40, 167, 69, 0.8)"
+                      ],
+                      borderColor: ["#fff", "#fff", "#fff"]
+                    }]
+                  };
+                  new Chart(document.getElementById("gaChart"), {
+                    type: "pie",
+                    data: gaData,
+                    options: {
+                      responsive: true,
+                      plugins: {
+                        legend: { position: "bottom" },
+                        title: { display: false }
+                      }
+                    }
+                  });
+                };
+                // ページ読み込み完了後に実行
+                document.addEventListener("turbo:load", drawGaChart);
+                // 初回読み込み時のために、ページ内にグラフコンテナが存在する場合に実行
+                if (document.getElementById("gaChart")) {
+                  drawGaChart();
+                }
+              </script>
+            <% else %>
+              <p>データがありません</p>
+            <% end %>
           </div>
         </div>
       <% else %>
@@ -92,6 +188,5 @@
         </div>
       <% end %>
     </div>
-
   </div>
 </div>

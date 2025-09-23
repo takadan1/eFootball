@@ -20,10 +20,10 @@ Rails.application.routes.draw do
   resources :matches
   get "stats", to: "stats#index", as: :stats
 
-
-  resources :shares do
-     resources :comments, only: [:create]
-  end
+#この下2行の先頭に＃がついていることで、shareにアクセス不可にしている。
+  #resources :shares do
+     #resources :comments, only: [:create]
+  #end
 
   root 'matches#index'
 
@@ -40,4 +40,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  
 end

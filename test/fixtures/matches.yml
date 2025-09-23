@@ -13,6 +13,7 @@ one:
   gf_dribble: 1
   gf_build_up: 1
   gf_accident: 1
+  gf_throughpass: 1
   gf_other: 1
   ga_counter: 1
   ga_cross: 1
@@ -21,6 +22,7 @@ one:
   ga_dribble: 1
   ga_build_up: 1
   ga_accident: 1
+  ga_throughpass: 1
   ga_other: 1
 
 two:
@@ -36,6 +38,7 @@ two:
   gf_dribble: 1
   gf_build_up: 1
   gf_accident: 1
+  gf_throughpass: 1
   gf_other: 1
   ga_counter: 1
   ga_cross: 1
@@ -44,4 +47,5 @@ two:
   ga_dribble: 1
   ga_build_up: 1
   ga_accident: 1
+  ga_throughpass: 1
   ga_other: 1

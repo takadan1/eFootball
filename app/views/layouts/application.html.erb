@@ -17,6 +17,8 @@
     <%= javascript_importmap_tags %>
     <%# app/views/layouts/application.html.erb の <head> 内に追加 %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
 <body class="site-body">
@@ -33,7 +35,7 @@
     <%# ナビゲーションメニュー %>
     <nav class="header-nav">
       <ul>
-        <li><%= link_to "掲示板", shares_path %></li>
+        <li><%#= link_to "掲示板", shares_path %></li>
         <li><%= link_to "記録一覧", matches_path %></li>
         <li><%= link_to "記録する", new_match_path %></li>
         <li><%= link_to "分析する", stats_path %></li>

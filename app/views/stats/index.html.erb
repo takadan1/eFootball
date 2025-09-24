@@ -21,10 +21,18 @@
         <div class="form-field">
           <label>相手チームスタイル</label>
           <%= select_tag :style,
-              options_for_select([["すべて",""]] + Match.team_styles.keys.map { |k|
-                [ { "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター", "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック" }[k], k]
-              }, params[:style]),
-              class: "form-control-select" %>
+                options_for_select([["すべて",""]] + Match.team_styles.keys.map { |k|
+                  [ { "short_counter"=>"ショートカウンター","long_counter"=>"ロングカウンター", "possession"=>"ポゼッション","long_ball"=>"ロングボール","side_attack"=>"サイドアタック" }[k], k]
+                }, params[:style]),
+                class: "form-control-select" %>
+        </div>
+        <div class="form-field">
+          <label>メモ検索</label>
+          <%= text_field_tag :keyword, params[:keyword], class: "form-control", placeholder: "例: ブリッツカーブ" %>
+        </div>
+        <div class="form-field">
+              <label>最高順位で絞り込む</label>
+              <%= number_field_tag :rank, params[:rank], class: "form-control", placeholder: "例: 2000以上" %>
         </div>
         <div class="form-actions">
           <%= submit_tag "この条件で分析する", class: "btn btn-primary" %>

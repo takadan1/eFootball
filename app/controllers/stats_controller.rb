@@ -4,10 +4,14 @@ class StatsController < ApplicationController
   def index
     @formation = params[:formation].presence
     @style     = params[:style].presence
+    @keyword   = params[:keyword].presence # 検索キーワード
+    @rank      = params[:rank].presence
 
     rel = current_user.matches
     rel = rel.by_formation(@formation) if @formation
     rel = rel.by_team_style(@style)    if @style
+    rel = rel.by_keyword(@keyword)     if @keyword 
+    rel = rel.by_opponent_rank(@rank)  if @rank 
 
     @total = rel.count
     if @total.zero?
@@ -24,8 +28,8 @@ class StatsController < ApplicationController
     @loss_pct = (rel.result_loss.count * 100.0 / @total).round(1)
 
     # 平均得点数・平均失点数
-    gf_expr = "gf_counter + gf_cross + gf_one_two + gf_long_shot + gf_dribble + gf_build_up + gf_accident + gf_throughpass + gf_other"
-    ga_expr = "ga_counter + ga_cross + ga_one_two + ga_long_shot + ga_dribble + ga_build_up + ga_accident + ga_throughpass + ga_other"
+    gf_expr = "gf_throughpass + gf_throughkuzusi + gf_counter + gf_cross + gf_one_two + gf_long_shot + gf_dribble + gf_build_up + gf_accident +  gf_corner + gf_fk + gf_pk + gf_other"
+    ga_expr = "ga_throughpass + ga_throughkuzusi + ga_counter + ga_cross + ga_one_two + ga_long_shot + ga_dribble + ga_build_up + ga_accident +  ga_corner + ga_fk + ga_pk + ga_other"
     @avg_gf = rel.average(Arel.sql(gf_expr)).to_f.round(2)
     @avg_ga = rel.average(Arel.sql(ga_expr)).to_f.round(2)
 

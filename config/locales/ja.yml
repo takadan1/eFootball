@@ -1,0 +1,18 @@
+ja:
+  devise:
+    passwords:
+      updated: パスワードを変更しました。
+      updated_not_active: パスワードを変更しました。
+      send_instructions: パスワード変更用のメールを送信しました。
+      send_paranoid_instructions: パスワード変更用のメールを送信しました。
+    sessions:
+      signed_in: ログインしました。
+      signed_out: ログアウトしました。
+      already_signed_out: ログアウトしました。
+  activerecord:
+    attributes:
+      user:
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
+        current_password: 現在のパスワード

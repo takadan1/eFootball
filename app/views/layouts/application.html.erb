@@ -39,6 +39,7 @@
         <li><%= link_to "記録一覧", matches_path %></li>
         <li><%= link_to "記録する", new_match_path %></li>
         <li><%= link_to "分析する", stats_path %></li>
+        <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "logout-link" %><li>
       </ul>
     </nav>
 

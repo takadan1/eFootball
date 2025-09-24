@@ -58,7 +58,7 @@
       <%# 相手フォーメーション %>
       <div class="form-field">
         <%= f.label :opponent_formation, "相手フォーメーション" %>
-        <%= f.text_field :opponent_formation, placeholder: "例: 4-1-2-3", class: "form-control" %>
+        <%= f.text_field :opponent_formation, placeholder: "例：4-1-2-3", class: "form-control" %>
       </div>
       <%# チームスタイル %>
       <div class="form-field">
@@ -68,11 +68,16 @@
               { include_blank: "選択してください" },
               { class: "form-control-select" } %>
       </div>
+      <div class="form-field">
+        <%= f.label :opponent_rank, "相手の最高順位(任意)" %>
+        <%= f.number_field :opponent_rank, class: "form-control", placeholder: "例: 2000" %>
+      </div>
+  </div>
     </div>
     <%# メモ %>
     <div class="form-field">
       <%= f.label :notes, "その他メモ" %>
-      <%= f.text_area :notes, rows: 4, placeholder: "例：相手の左サイドバックは攻撃的だった", class: "form-control" %>
+      <%= f.text_area :notes, rows: 4, placeholder: "例：ブリッツカーブ・監督カペッロ", class: "form-control" %>
     </div>
   </div>
 

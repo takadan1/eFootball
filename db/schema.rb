@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_09_22_175458) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_24_022353) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -74,6 +74,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_09_22_175458) do
     t.datetime "updated_at", null: false
     t.integer "gf_throughpass", default: 0, null: false
     t.integer "ga_throughpass", default: 0, null: false
+    t.integer "gf_throughkuzusi", default: 0, null: false
+    t.integer "gf_corner", default: 0, null: false
+    t.integer "gf_fk", default: 0, null: false
+    t.integer "gf_pk", default: 0, null: false
+    t.integer "ga_throughkuzusi", default: 0, null: false
+    t.integer "ga_corner", default: 0, null: false
+    t.integer "ga_fk", default: 0, null: false
+    t.integer "ga_pk", default: 0, null: false
+    t.integer "opponent_rank"
     t.index ["user_id"], name: "index_matches_on_user_id"
   end
 

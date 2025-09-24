@@ -42,11 +42,11 @@ class MatchesController < ApplicationController
 
   def match_params
     params.require(:match).permit(
-      :result, :opponent_formation, :team_style, :notes,
-      :gf_counter, :gf_cross, :gf_one_two, :gf_long_shot, :gf_throughpass,
-      :gf_dribble, :gf_build_up, :gf_accident, :gf_other,
-      :ga_counter, :ga_cross, :ga_one_two, :ga_long_shot, :ga_throughpass,
-      :ga_dribble, :ga_build_up, :ga_accident, :ga_other
+      :result, :opponent_formation, :team_style, :notes, :opponent_rank,
+      :gf_throughpass, :gf_throughkuzusi, :gf_counter, :gf_cross, :gf_one_two, :gf_long_shot, 
+       :gf_dribble, :gf_build_up, :gf_accident, :gf_corner, :gf_fk, :gf_pk, :gf_other,
+       :ga_throughpass, :ga_throughkuzusi, :ga_counter, :ga_cross, :ga_one_two, :ga_long_shot, 
+       :ga_dribble, :ga_build_up, :ga_accident, :ga_corner, :ga_fk, :ga_pk, :ga_other,
     )
   end
 end
